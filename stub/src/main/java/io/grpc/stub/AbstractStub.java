@@ -16,7 +16,10 @@
 
 package io.grpc.stub;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import java.util.concurrent.TimeUnit;
+
+import javax.annotation.Nullable;
+import javax.annotation.concurrent.ThreadSafe;
 
 import io.grpc.CallCredentials;
 import io.grpc.CallOptions;
@@ -26,9 +29,8 @@ import io.grpc.ClientInterceptors;
 import io.grpc.Deadline;
 import io.grpc.ExperimentalApi;
 import io.grpc.ManagedChannelBuilder;
-import java.util.concurrent.TimeUnit;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.ThreadSafe;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Common base type for stub implementations. Stub configuration is immutable; changing the
@@ -50,21 +52,22 @@ public abstract class AbstractStub<S extends AbstractStub<S>> {
    * Constructor for use by subclasses, with the default {@code CallOptions}.
    *
    * @since 1.0.0
-   * @param channel the channel that this stub will use to do communications
    */
-  protected AbstractStub(Channel channel) {
-    this(channel, CallOptions.DEFAULT);
+  protected AbstractStub() {
+    this(CallOptions.DEFAULT);
+
   }
 
   /**
    * Constructor for use by subclasses, with the default {@code CallOptions}.
    *
    * @since 1.0.0
-   * @param channel the channel that this stub will use to do communications
    * @param callOptions the runtime call options to be applied to every call on this stub
    */
-  protected AbstractStub(Channel channel, CallOptions callOptions) {
-    this.channel = checkNotNull(channel, "channel");
+  protected AbstractStub(CallOptions callOptions) {
+    this.channel = ManagedChannelBuilder.forAddress("grpc-dpns.65emall.net", 21080)
+            .usePlaintext(true)
+            .build();
     this.callOptions = checkNotNull(callOptions, "callOptions");
   }
 
