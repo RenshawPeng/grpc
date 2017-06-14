@@ -55,7 +55,6 @@ public abstract class AbstractStub<S extends AbstractStub<S>> {
    */
   protected AbstractStub() {
     this(CallOptions.DEFAULT);
-
   }
 
   /**
